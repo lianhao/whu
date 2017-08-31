@@ -36,6 +36,7 @@ check_nfs()
     local pass=$2
     local checkfile="data/tmp$RANDOM$RANDOM$RANDOM"
 
+    ssh_remote_run $host $pass "mount | grep nfs | grep -q 172.16.100.200" || die "Can not find NFS mount point on host $host"
     ssh_remote_run $host $pass "touch $checkfile" || die "Can not create file on NFS on host $host"
     ssh_remote_run $host $pass "rm -f $checkfile" || die "Can not delete file on NFS on host $host"
 }
